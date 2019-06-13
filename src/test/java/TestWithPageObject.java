@@ -32,4 +32,12 @@ public class TestWithPageObject {
                 employeePage.textoPaginaContainsText("Add Employee"));
         driver.quit();
     }
+
+    @Test
+    public void testFailed(){
+        homePage.loginFailed("admin1", "admin");
+
+        Assert.assertTrue(homePage.messageError("Bad credentials Please try again..") && homePage.messageErrorIsDisplayed());
+        driver.quit();
+    }
 }

@@ -18,6 +18,9 @@ public class HomePage {
 //    @FindBy(how = How.ID, using = "loginButton")
     WebElement loginButton;
 
+    @FindBy(how = How.NAME, using = "errorMessage")
+    WebElement messageError;
+
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -30,5 +33,18 @@ public class HomePage {
         return new EmployeePage(driver);
     }
 
+    public void loginFailed(String usuario, String password){
+        inputUser.sendKeys(usuario);
+        inputPassword.sendKeys(password);
+        loginButton.click();
+    }
+
+    public boolean messageError(String text){
+        return messageError.getText().contains(text);
+    }
+
+    public boolean messageErrorIsDisplayed(){
+        return messageError.isDisplayed();
+    }
 
 }
