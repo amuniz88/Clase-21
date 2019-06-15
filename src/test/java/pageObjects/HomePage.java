@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class HomePage {
-    WebDriver driver;
+public class HomePage extends BasePage{
 
     @FindBy(how = How.ID, using = "user")
     WebElement inputUser;
@@ -22,21 +21,22 @@ public class HomePage {
     WebElement messageError;
 
     public HomePage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    public EmployeePage login(String usuario, String password){
+    public EmployeePage loginEmploye(String usuario, String password){
         inputUser.sendKeys(usuario);
         inputPassword.sendKeys(password);
         loginButton.click();
+        wait.until(ExpectedConditions.titleIs("Add Employee v2 – Verstand QA"));
         return new EmployeePage(driver);
     }
 
-    public void loginFailed(String usuario, String password){
+    public void login(String usuario, String password){
         inputUser.sendKeys(usuario);
         inputPassword.sendKeys(password);
         loginButton.click();
+        wait.until(ExpectedConditions.titleIs("Add Employee v2 – Verstand QA"));
     }
 
     public boolean messageError(String text){
@@ -46,5 +46,6 @@ public class HomePage {
     public boolean messageErrorIsDisplayed(){
         return messageError.isDisplayed();
     }
+
 
 }
